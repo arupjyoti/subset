@@ -2,7 +2,7 @@ import java.io.IOException;
  import java.util.Scanner;
 class Subset
 {
-    // Print all subsets of given set[]
+   // returns the number of unordered pairs 
     static int printSubsets(int set[],int k)
     {
         int n = set.length;
@@ -10,35 +10,31 @@ class Subset
         int arr[] = new int[10000000];
 	
         for (i = 0; i < (1<<n); i++)
-        {
-            //System.out.print("{ ");
- 
-            // Print current subset
+	{
             for (j = 0; j < n; j++)
                 {
                 if ((i & (1 << j)) > 0)
-                    {
-                      arr[c++] = set[j];
-                    //System.out.print(set[j] + " ");
-                }
-            }
-            if(c>=2)
-             for(int f=0;f<c-1;++f)
+             	 arr[c++] = set[j];		//  array arr[] contains the subset of the main array set[] which is then examined
+		    				//  for number of unordered pairs.
+       		 }
+            
+	if(c>=2)			// to count the number of unordered pairs , if the number of unordered pairs(f,s) , f!=s,
+             for(int f=0;f<c-1;++f)	// such that |arr[s] - arr[f]|>=k
                 {
                     for(s=f+1;s<c;++s)
                         {
                             if(Math.abs(arr[s]-arr[f])>=k)
-                                z++;
+                                z++;		// number of unordered pairs are stored in z
                  
                         }
                     }
                     
                       c=0;
                    //  Arrays.fill(arr,0);
-           // System.out.println("}");
+        
         }
         
-        return (z-1);
+        return (z-1);			
     }
  
     // Driver code
@@ -53,9 +49,11 @@ class Subset
           int set[] = new int[n];
           for(int j=0;j<n;++j)
           set[j] = ob.nextInt();
-      res[i] = printSubsets(set,k);
+      	  res[i] = printSubsets(set,k);
     }
-	
+	    
+	    
+// Display  the number of unordered pairs for each test case
 	for(int c= 0 ;c < i;++c)
 	System.out.print(" "+res[c]);
 }
